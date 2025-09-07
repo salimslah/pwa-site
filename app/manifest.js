@@ -10,16 +10,20 @@ export default function manifest() {
     background_color: '#ffffff',
     theme_color: '#000000',
     icons: [
-      // Temporary: use existing assets to avoid 404 until PNG icons are added
       {
-        src: '/favicon.ico',
-        sizes: '48x48 72x72 96x96 144x144 192x192 256x256',
-        type: 'image/x-icon',
+        src: '/web-app-manifest-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
       },
       {
-        src: '/next.svg',
-        sizes: 'any',
-        type: 'image/svg+xml',
+        src: '/web-app-manifest-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+      {
+        src: '/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png',
         purpose: 'any',
       },
     ],
