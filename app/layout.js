@@ -22,8 +22,9 @@ export const metadata = {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "pwatest",
+    manifest: '/manifest.webmanifest',
   },
-  manifest: '/manifest.webmanifest',
+  
 };
 
 export const viewport = {
