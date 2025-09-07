@@ -33,12 +33,18 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
 
+  // Skip non-http(s) requests (e.g., chrome-extension://) and data blobs
+  const requestUrl = new URL(request.url);
+  if (requestUrl.protocol !== 'http:' && requestUrl.protocol !== 'https:') return;
+
   if (request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
       fetch(request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+          if (response.ok && (response.type === 'basic' || response.type === 'cors')) {
+            caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+          }
           return response;
         })
         .catch(() => caches.match(request))
@@ -52,7 +58,9 @@ self.addEventListener('fetch', (event) => {
       return fetch(request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+          if (response.ok && (response.type === 'basic' || response.type === 'cors')) {
+            caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+          }
           return response;
         })
         .catch(() => cached);
