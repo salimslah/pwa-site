@@ -23,6 +23,7 @@ export const metadata = {
     statusBarStyle: "black-translucent",
     title: "pwatest",
   },
+  manifest: '/manifest.webmanifest',
 };
 
 export const viewport = {
