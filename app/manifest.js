@@ -8,7 +8,8 @@ export default function manifest() {
     start_url: '/',
     scope: '/',
     display: 'standalone',
-    display_override: ['standalone', 'minimal-ui', 'window-controls-overlay'],
+    display_override: ['standalone'],
+    
     orientation: 'any',
     background_color: '#ffffff',
     theme_color: '#000000',
