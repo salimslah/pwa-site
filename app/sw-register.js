@@ -22,6 +22,27 @@ export default function ServiceWorkerRegister() {
             }
           });
         });
+
+        // Request Notification permission (subscription requires server keys)
+        if ("Notification" in window) {
+          try {
+            await Notification.requestPermission();
+          } catch {}
+        }
+
+        // Register background sync (one-off)
+        if ("sync" in registration) {
+          try {
+            await registration.sync.register("retry-queue");
+          } catch {}
+        }
+
+        // Register periodic background sync
+        if ("periodicSync" in registration) {
+          try {
+            await registration.periodicSync.register("content-refresh", { minInterval: 24 * 60 * 60 * 1000 });
+          } catch {}
+        }
       } catch (error) {
         console.error("Service worker registration failed:", error);
       }

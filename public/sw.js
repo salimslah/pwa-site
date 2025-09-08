@@ -68,4 +68,38 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
+// Periodic Background Sync
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'content-refresh') {
+    event.waitUntil(
+      fetch('/')
+        .then(() => undefined)
+        .catch(() => undefined)
+    );
+  }
+});
+
+// One-off Background Sync
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'retry-queue') {
+    event.waitUntil(Promise.resolve());
+  }
+});
+
+// Push Notifications placeholder
+self.addEventListener('push', (event) => {
+  try {
+    const data = event.data ? event.data.json() : { title: 'Notification', body: 'Hello from PWA' };
+    event.waitUntil(
+      self.registration.showNotification(data.title || 'PWA', {
+        body: data.body || '',
+        icon: '/web-app-manifest-192x192.png',
+        badge: '/web-app-manifest-192x192.png',
+      })
+    );
+  } catch (e) {
+    // ignore
+  }
+});
+
 

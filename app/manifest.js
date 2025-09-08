@@ -12,6 +12,10 @@ export default function manifest() {
     orientation: 'any',
     background_color: '#ffffff',
     theme_color: '#000000',
+    screenshots: [
+      { src: '/web-app-manifest-512x512.png', sizes: '1080x1920', type: 'image/png', form_factor: 'narrow' },
+      { src: '/web-app-manifest-512x512.png', sizes: '1920x1080', type: 'image/png', form_factor: 'wide' },
+    ],
     icons: [
       {
         src: '/web-app-manifest-192x192.png',
@@ -33,7 +37,11 @@ export default function manifest() {
     id: '/',
     categories: ['productivity'],
     prefer_related_applications: false,
-    related_applications: [],
+    related_applications: [
+      { platform: 'play', id: 'com.example.app' },
+      { platform: 'itunes', url: 'https://apps.apple.com/app/id1234567890' },
+    ],
+    iarc_rating_id: 'IARC-XXXX-XXXX-XXXX-XXXX',
 
     // Let users jump to key tasks
     shortcuts: [
@@ -60,8 +68,7 @@ export default function manifest() {
     // Reserved for cross-origin navigation. Keep empty unless needed
     scope_extensions: [],
 
-    /*
-    // Optional advanced capabilities (uncomment and configure if you add routes):
+    // Enable OS share integration
     share_target: {
       action: '/share-target',
       method: 'POST',
@@ -70,16 +77,16 @@ export default function manifest() {
         title: 'title',
         text: 'text',
         url: 'url',
-        files: [{ name: 'files', accept: ['image/*'] }],
+        files: [{ name: 'files', accept: ['image/*', 'text/plain'] }],
       },
     },
 
+    // Allow opening files with this PWA
     file_handlers: [
       {
         action: '/open',
         accept: { 'text/plain': ['.txt'] },
       },
     ],
-    */
   }
 }
